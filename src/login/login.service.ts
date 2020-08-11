@@ -12,11 +12,13 @@ export class LoginService {
     private authService: AuthService,
   ) {}
 
-  async login(loginCredentials: LoginDto): Promise<string> {
+  async login(loginCredentials: LoginDto): Promise<any> {
     const user: User = await this.userModel.findOne({ email: loginCredentials.email.toLowerCase() });
     if (!user || !await compare(loginCredentials.password, user.password)) {
       throw new Error('Bad credentials');
     }
-    return await this.authService.generateToken(user);
+    return {
+      token: await this.authService.generateToken(user),
+    };
   }
 }
