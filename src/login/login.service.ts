@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
-import { User } from 'src/user/interfaces/user.interface';
-import { AuthService } from 'src/auth/auth.service';
+import { User } from '../user/interfaces/user.interface';
+import { AuthService } from '../auth/auth.service';
 import { LoginDto } from './dto/login.dto';
 import { compare } from 'bcrypt';
 
