@@ -7,8 +7,8 @@ export class MangaController {
 
   constructor(private mangasService: MangaService) {}
 
-  @Get('search/')
-  async search(@Query() query: SearchQueryDto) {
+  @Get('search/:query')
+  async search(@Param('query') query: SearchQueryDto) {
     try {
       return await this.mangasService.search(query.query);
     } catch (error) {
