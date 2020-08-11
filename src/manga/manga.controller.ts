@@ -25,7 +25,7 @@ export class MangaController {
     }
   }
 
-  @Get(':url/chapter/:chapter')
+  @Get(':url/:chapter')
   async getChapter(@Param('url') url: string, @Param('chapter') chapter: string) {
     try {
       return await this.mangasService.getChapter(url, chapter);

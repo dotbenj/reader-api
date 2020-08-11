@@ -59,7 +59,7 @@ export class MangaService {
           });
         }
       });
-      return mangaContainer.reverse();
+      return mangaContainer;
     } catch (error) {
       return new Error(error);
     }
