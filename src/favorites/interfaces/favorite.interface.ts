@@ -3,6 +3,7 @@ import { User } from 'src/user/interfaces/user.interface';
 
 export interface Favorite extends Document {
   id?: string;
+  name: string,
   url: string;
   cursor: number;
   _user: User;
