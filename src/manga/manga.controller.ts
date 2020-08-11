@@ -7,6 +7,7 @@ export class MangaController {
   constructor(private mangasService: MangaService) {}
 
   @Get('search/:query')
+
   async search(@Param('query') query: string) {
     try {
       return await this.mangasService.search(query);
@@ -24,7 +25,7 @@ export class MangaController {
     }
   }
 
-  @Get(':url/chapter/:chapter')
+  @Get(':url/:chapter')
   async getChapter(@Param('url') url: string, @Param('chapter') chapter: string) {
     try {
       return await this.mangasService.getChapter(url, chapter);

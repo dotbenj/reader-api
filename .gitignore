@@ -3,4 +3,3 @@ node_modules
 *.env
 .vscode
 nodemon-debug.json
-tsconfig.build.json
