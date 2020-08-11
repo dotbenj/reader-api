@@ -1,6 +1,5 @@
 import { MangaService } from './manga.service';
-import { SearchQueryDto } from './dto/search-query.dto';
-import { Controller, Get, Query, Param, HttpException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, HttpException } from '@nestjs/common';
 
 @Controller('manga')
 export class MangaController {
@@ -8,9 +7,10 @@ export class MangaController {
   constructor(private mangasService: MangaService) {}
 
   @Get('search/:query')
-  async search(@Param('query') query: SearchQueryDto) {
+
+  async search(@Param('query') query: string) {
     try {
-      return await this.mangasService.search(query.query);
+      return await this.mangasService.search(query);
     } catch (error) {
       throw new HttpException(error.message, 520);
     }
