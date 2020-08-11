@@ -17,8 +17,7 @@ import { DatabaseModule } from './database/database.module';
     LoginModule,
     DatabaseModule,
     ConfigModule.forRoot({
-      envFilePath: 'development.env',
-      // Prod ignoreEnvFile: true,
+      ignoreEnvFile: true,
     }),
   ],
   controllers: [AppController],
