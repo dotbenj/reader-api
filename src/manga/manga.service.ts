@@ -47,7 +47,7 @@ export class MangaService {
 
   async getChapters(url: string): Promise<Chapter[] | Error> {
     try {
-      const html = await axios.default.get(`http://www.mangapanda.com${url}`);
+      const html = await axios.default.get(`http://www.mangapanda.com/${url}`);
       const mangaContainer = [];
       const $ = cheerio.load(html.data);
       $('#chapterlist > table').find('tr > td').each((index: number, elem) => {
