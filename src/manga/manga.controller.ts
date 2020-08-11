@@ -1,16 +1,12 @@
 import { MangaService } from './manga.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { SearchQueryDto } from './dto/search-query.dto';
 import { Controller, Get, Query, Param, HttpException, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('manga')
 export class MangaController {
 
   constructor(private mangasService: MangaService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @Get('search/')
   async search(@Query() query: SearchQueryDto) {
     try {
