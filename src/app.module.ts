@@ -17,10 +17,10 @@ import { FavoritesModule } from './favorites/favorites.module';
     MangaModule,
     LoginModule,
     DatabaseModule,
-    ConfigModule.forRoot({
-      envFilePath: 'development.env',
-    }),
     FavoritesModule,
+    ConfigModule.forRoot({
+      ignoreEnvFile: true,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
