@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -8,6 +7,8 @@ import { AppController } from './app.controller';
 import { LoginModule } from './login/login.module';
 import { MangaModule } from './manga/manga.module';
 import { DatabaseModule } from './database/database.module';
+import { FavoritesModule } from './favorites/favorites.module';
+
 
 @Module({
   imports: [
@@ -17,8 +18,9 @@ import { DatabaseModule } from './database/database.module';
     LoginModule,
     DatabaseModule,
     ConfigModule.forRoot({
-      ignoreEnvFile: true,
+      envFilePath: 'development.env',
     }),
+    FavoritesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
