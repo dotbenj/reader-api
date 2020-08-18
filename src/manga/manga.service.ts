@@ -46,6 +46,9 @@ export class MangaService {
   }
 
   async getChapters(url: string): Promise<Chapter[] | Error> {
+    if (url.indexOf('/') === 0) {
+      url = url.substr(1);
+    }
     try {
       const html = await axios.default.get(`http://www.mangapanda.com/${url}`);
       const mangaContainer = [];

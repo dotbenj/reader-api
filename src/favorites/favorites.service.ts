@@ -27,18 +27,18 @@ export class FavoritesService {
       author: fav.author,
       img: fav.img,
       chapters: 0,
-      remain: null,
+      remain: 0,
       cursor: fav.cursor || 0,
       _user: userId,
     };
-    const chapters = await this.mangaService.getChapters(fav.url);
-    if (chapters as Chapter[]) {
-      const chapterCount = chapters as Chapter[];
-      newFav.chapters = chapterCount.length;
-      newFav.remain = newFav.chapters - newFav.cursor;
-    }
-    const favToAdd = new this.favModel(newFav);
     try {
+      const chapters = await this.mangaService.getChapters(fav.url);
+      if (chapters as Chapter[]) {
+        const chapterCount = chapters as Chapter[];
+        newFav.chapters = chapterCount.length;
+        newFav.remain = newFav.chapters - newFav.cursor;
+      }
+      const favToAdd = new this.favModel(newFav);
       return favToAdd.save();
     } catch (error) {
       throw new Error(error);
