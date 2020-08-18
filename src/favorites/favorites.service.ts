@@ -20,6 +20,8 @@ export class FavoritesService {
     const newFav = {
       name: fav.name,
       url: fav.url,
+      author: fav.author,
+      img: fav.img,
       cursor: fav.cursor || 0,
       _user: userId,
     };
