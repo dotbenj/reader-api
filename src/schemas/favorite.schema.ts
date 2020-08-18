@@ -6,6 +6,8 @@ export const FavoriteSchema = new mongoose.Schema({
   img: String,
   name: String,
   cursor: Number,
+  remain: Number,
+  chapters: Number,
   lastChecked: Date,
   _user: {
     type: mongoose.Schema.Types.ObjectId,

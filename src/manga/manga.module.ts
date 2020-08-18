@@ -5,5 +5,6 @@ import { MangaService } from './manga.service';
 @Module({
   controllers: [MangaController],
   providers: [MangaService],
+  exports: [MangaService],
 })
 export class MangaModule {}

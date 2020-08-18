@@ -1,12 +1,16 @@
-import { Injectable, Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { Favorite } from './interfaces/favorite.interface';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreateFavDto } from './dto/create-fav.dto';
+import { MangaService } from '../manga/manga.service';
 import { ModifyFavDto } from './dto/modify-fav.dto copy';
+import { Favorite } from './interfaces/favorite.interface';
+import { Chapter } from '../manga/interfaces/chapter.interface';
 
 @Injectable()
 export class FavoritesService {
-  constructor(@Inject('FAVORITE_MODEL') private favModel: Model<any>) {}
+  constructor(
+    @Inject('FAVORITE_MODEL') private favModel: Model<any>,
+    private mangaService: MangaService) {}
 
   async getFavs(userId: string): Promise<Favorite[]> {
     try {
@@ -16,15 +20,23 @@ export class FavoritesService {
     }
   }
 
-  addFav(fav: CreateFavDto, userId: string): Promise<Favorite> {
+  async addFav(fav: CreateFavDto, userId: string): Promise<Favorite> {
     const newFav = {
       name: fav.name,
       url: fav.url,
       author: fav.author,
       img: fav.img,
+      chapters: 0,
+      remain: null,
       cursor: fav.cursor || 0,
       _user: userId,
     };
+    const chapters = await this.mangaService.getChapters(fav.url);
+    if (chapters as Chapter[]) {
+      const chapterCount = chapters as Chapter[];
+      newFav.chapters = chapterCount.length;
+      newFav.remain = newFav.chapters - newFav.cursor;
+    }
     const favToAdd = new this.favModel(newFav);
     try {
       return favToAdd.save();
