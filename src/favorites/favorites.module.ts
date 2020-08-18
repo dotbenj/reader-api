@@ -3,7 +3,7 @@ import { FavoritesController } from './favorites.controller';
 import { FavoritesService } from './favorites.service';
 import { favoriteProvider } from '../schemas/favorite.provider';
 import { DatabaseModule } from '..//database/database.module';
-import { MangaModule } from 'src/manga/manga.module';
+import { MangaModule } from '../manga/manga.module';
 
 @Module({
   controllers: [FavoritesController],
