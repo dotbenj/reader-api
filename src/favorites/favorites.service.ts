@@ -18,6 +18,7 @@ export class FavoritesService {
 
   addFav(fav: CreateFavDto, userId: string): Promise<Favorite> {
     const newFav = {
+      name: fav.name,
       url: fav.url,
       cursor: fav.cursor || 0,
       _user: userId,

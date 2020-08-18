@@ -3,7 +3,7 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreateFavDto {
 
-  @ApiProperty({ description: 'Name of the favorite', required: true})
+  @ApiProperty({ description: 'Display name of the favorite', required: true})
   @IsNotEmpty()
   readonly name: string;
 
