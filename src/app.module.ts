@@ -8,7 +8,9 @@ import { LoginModule } from './login/login.module';
 import { MangaModule } from './manga/manga.module';
 import { DatabaseModule } from './database/database.module';
 import { FavoritesModule } from './favorites/favorites.module';
+import { ConfigModuleOptions } from '@nestjs/config/dist/interfaces';
 
+const envConfig: ConfigModuleOptions = process.env.ENV === 'development' ? { envFilePath: 'development.env' } : { ignoreEnvFile: true };
 
 @Module({
   imports: [
@@ -18,9 +20,7 @@ import { FavoritesModule } from './favorites/favorites.module';
     LoginModule,
     DatabaseModule,
     FavoritesModule,
-    ConfigModule.forRoot({
-      ignoreEnvFile: true,
-    }),
+    ConfigModule.forRoot(envConfig),
   ],
   controllers: [AppController],
   providers: [AppService],

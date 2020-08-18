@@ -9,9 +9,11 @@ import { MangaModule } from '../manga/manga.module';
   controllers: [FavoritesController],
   providers: [
     FavoritesService,
-    MangaModule,
     ...favoriteProvider,
   ],
-  imports: [DatabaseModule],
+  imports: [
+    DatabaseModule,
+    MangaModule,
+  ],
 })
 export class FavoritesModule {}
