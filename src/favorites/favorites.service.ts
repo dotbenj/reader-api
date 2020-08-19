@@ -57,7 +57,7 @@ export class FavoritesService {
         {
           $set: {
             chapters: chapters.length,
-            cursor: newFav.cursor,
+            cursor: newFav.cursor + 1,
             remain: chapters.length - newFav.cursor,
           },
         },
