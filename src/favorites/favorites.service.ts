@@ -64,7 +64,7 @@ export class FavoritesService {
         },
         {
           new: true,
-          useFindAndModify: true,
+          useFindAndModify: false,
         })
         .populate('_user')
         .exec();
@@ -90,7 +90,7 @@ export class FavoritesService {
             },
           },
           {
-            useFindAndModify: true,
+            useFindAndModify: false,
           },
         );
       });
