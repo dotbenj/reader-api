@@ -56,7 +56,7 @@ export class FavoritesService {
         },
         {
           $set: {
-            chapters,
+            chapters: chapters.length,
             cursor: newFav.cursor,
             remain: chapters.length - newFav.cursor,
           },
@@ -68,7 +68,6 @@ export class FavoritesService {
         .populate('_user')
         .exec();
     } catch (error) {
-      console.log('Error', error);
       throw new Error(error);
     }
   }
