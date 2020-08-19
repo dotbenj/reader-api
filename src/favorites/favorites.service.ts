@@ -73,7 +73,7 @@ export class FavoritesService {
     }
   }
 
-  @Cron('50 * * * * *')
+  @Cron('* * 6 * * *')
   async handleChaptersCheck() {
     try {
       const favorites: any[] = await this.favModel.find();
@@ -88,6 +88,9 @@ export class FavoritesService {
               chapters: chapters.length,
               remain: parseInt(chapters[0].number, 10) - parseInt(fav.cursor, 10),
             },
+          },
+          {
+            useFindAndModify: true,
           },
         );
       });
