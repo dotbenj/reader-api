@@ -68,6 +68,7 @@ export class FavoritesService {
         .populate('_user')
         .exec();
     } catch (error) {
+      console.log('Error', error);
       throw new Error(error);
     }
   }
