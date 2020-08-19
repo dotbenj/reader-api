@@ -1,8 +1,9 @@
 import { Model } from 'mongoose';
+import { Cron } from '@nestjs/schedule';
 import { Injectable, Inject } from '@nestjs/common';
+
 import { CreateFavDto } from './dto/create-fav.dto';
 import { MangaService } from '../manga/manga.service';
-import { ModifyFavDto } from './dto/modify-fav.dto copy';
 import { Favorite } from './interfaces/favorite.interface';
 import { Chapter } from '../manga/interfaces/chapter.interface';
 
@@ -71,4 +72,28 @@ export class FavoritesService {
       throw new Error(error);
     }
   }
+
+  @Cron('50 * * * * *')
+  async handleChaptersCheck() {
+    try {
+      const favorites: any[] = await this.favModel.find();
+      favorites.forEach(async (fav) => {
+        const chapters = await this.mangaService.getChapters(fav.url) as Chapter[];
+        await this.favModel.findOneAndUpdate(
+          {
+            _id: fav._id,
+          },
+          {
+            $set: {
+              chapters: chapters.length,
+              remain: parseInt(chapters[0].number, 10) - parseInt(fav.cursor, 10),
+            },
+          },
+        );
+      });
+    } catch (error) {
+      console.log('Error', error);
+    }
+  }
+
 }
