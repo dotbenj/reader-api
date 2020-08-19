@@ -36,7 +36,7 @@ export class FavoritesController {
   @Put(':favId')
   async modifyFav(@Param('favId') favId: string, @Body() modifiedFav: ModifyFavDto, @Request() req) {
     try {
-      return await this.favService.modifyFav(favId, modifiedFav, req.user.id);
+      return await this.favService.modifyFav(favId, modifiedFav.cursor, req.user.id);
     } catch (error) {
       throw new HttpException(error.message, 520);
     }

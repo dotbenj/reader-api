@@ -45,7 +45,7 @@ export class FavoritesService {
     }
   }
 
-  async modifyFav(favId: string, newFav: ModifyFavDto, userId: string): Promise<Favorite> {
+  async modifyFav(favId: string, cursor: string, userId: string): Promise<Favorite> {
     try {
       const fav = await this.favModel.findOne({ _id: favId });
       const chapters = await this.mangaService.getChapters(fav.url) as Chapter[];
@@ -57,8 +57,8 @@ export class FavoritesService {
         {
           $set: {
             chapters: chapters.length,
-            cursor: newFav.cursor as number + 1,
-            remain: parseInt(chapters[0].number, 10) - newFav.cursor,
+            cursor: parseInt(cursor, 10) + 1,
+            remain: parseInt(chapters[0].number, 10) - parseInt(cursor, 10),
           },
         },
         {

@@ -5,6 +5,6 @@ export class ModifyFavDto {
 
   @ApiProperty({ description: 'Last chapter read', required: true })
   @IsNotEmpty()
-  readonly cursor: number;
+  readonly cursor: string;
 
 }
