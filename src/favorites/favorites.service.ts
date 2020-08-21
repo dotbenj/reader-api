@@ -79,14 +79,19 @@ export class FavoritesService {
       const favorites: any[] = await this.favModel.find();
       favorites.forEach(async (fav) => {
         const chapters = await this.mangaService.getChapters(fav.url) as Chapter[];
+        const cursor = parseInt(fav.cursor, 10);
+        let remain = parseInt(chapters[0].number, 10) - parseInt(fav.cursor, 10);
+        if (remain < 0) {
+          remain = 0;
+        }
         await this.favModel.findOneAndUpdate(
           {
             _id: fav._id,
           },
           {
             $set: {
+              remain,
               chapters: chapters.length,
-              remain: parseInt(chapters[0].number, 10) - parseInt(fav.cursor, 10),
             },
           },
           {
