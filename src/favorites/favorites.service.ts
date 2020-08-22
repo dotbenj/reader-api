@@ -15,6 +15,7 @@ export class FavoritesService {
 
   async getFavs(userId: string): Promise<Favorite[]> {
     try {
+      await this.updateFavsForUser(userId);
       return this.favModel.find({ _user: userId });
     } catch (error) {
       throw new Error(error);
@@ -71,6 +72,33 @@ export class FavoritesService {
     } catch (error) {
       throw new Error(error);
     }
+  }
+
+  async updateFavsForUser(userId: string): Promise<any> {
+    const favs = await this.favModel.find({ _user: userId});
+    const favsUpdate = [];
+    favs.forEach(async (fav) => {
+      const chapters = await this.mangaService.getChapters(fav.url) as Chapter[];
+      const cursor = parseInt(fav.cursor, 10);
+      let remain = parseInt(chapters[0].number, 10) - parseInt(fav.cursor, 10);
+      if (remain < 0) {
+        remain = 0;
+      }
+      favsUpdate.push(this.favModel.findOneAndUpdate(
+        {
+          _id: fav._id,
+      },
+      {
+        $set: {
+          remain,
+          chapters: chapters.length,
+        },
+      },
+      {
+        useFindAndModify: false,
+      }));
+    });
+    return Promise.all(favsUpdate);
   }
 
   @Cron('* * 6 * * *')
