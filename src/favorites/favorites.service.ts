@@ -59,7 +59,7 @@ export class FavoritesService {
         {
           $set: {
             chapters: chapters.length,
-            cursor: parseInt(cursor, 10) + 1,
+            cursor: parseInt(cursor, 10),
             remain: parseInt(chapters[0].number, 10) - parseInt(cursor, 10),
           },
         },
