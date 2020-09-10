@@ -40,6 +40,7 @@ export class UserService {
     try {
       return createdUser.save();
     } catch (error) {
+      console.log('Error', error);
       throw new Error(error);
     }
   }

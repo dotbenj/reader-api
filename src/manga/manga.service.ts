@@ -40,7 +40,9 @@ export class MangaService {
         i ++;
       });
       return resultJson;
+      console.log('MANGAS search result ', resultJson);
     } catch (error) {
+      console.log('MANGAS search error', error);
       return new Error(error);
     }
   }
